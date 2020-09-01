@@ -4,18 +4,53 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+    <title>Timetable</title>
+    <script type="text/javascript">
+        let ws;
+
+        function init() {
+            //TODO init websocket
+            let stationName = document.getElementById("form:stationName").value
+            updateTrainList();
+        }
+    </script>
 </h:head>
 
 <h:body>
     <h:form id="form">
         <h:outputText value="Station: "/>
         <p:inputText id="stationName" value="#{stationBean.station.name}"/>
-        <p:commandButton value="Connect" update="trainTable" action="#{stationBean.loadTrains}"/>
+        <p:commandButton id="connectButton" value="Connect" update="trainTable" onclick="init()"/>
     </h:form>
+
+    <p:remoteCommand name="updateTrainList" actionListener="#{stationBean.loadTrains}" style="display: none"/>
+
     <p:dataTable id="trainTable" value="#{stationBean.trainList}" var="oneTrain">
+
         <p:column headerText="Train">
             <h:outputText value="#{oneTrain.trainName}"/>
         </p:column>
+
+        <p:column headerText="From">
+            <h:outputText value="#{oneTrain.fromStation}"/>
+        </p:column>
+
+        <p:column headerText="To">
+            <h:outputText value="#{oneTrain.toStation}"/>
+        </p:column>
+
+        <p:column headerText="Departure">
+            <h:outputText value="#{oneTrain.departure}"/>
+        </p:column>
+
+        <p:column headerText="Arrival">
+            <h:outputText value="#{oneTrain.arrival}"/>
+        </p:column>
+
+
     </p:dataTable>
+
 </h:body>
+
+
 </html>
