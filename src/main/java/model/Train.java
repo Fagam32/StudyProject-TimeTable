@@ -1,19 +1,15 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Named
-@SessionScoped
 public class Train implements Serializable {
 
     private String trainName;
@@ -25,5 +21,12 @@ public class Train implements Serializable {
     private String departure;
 
     private String arrival;
+
+    @JsonIgnore
+    private String[] path;
+    @JsonIgnore
+    private String[] tickets;
+    @JsonIgnore
+    private Integer seatsNumber;
 
 }

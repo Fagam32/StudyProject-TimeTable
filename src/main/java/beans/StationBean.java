@@ -2,8 +2,10 @@ package beans;
 
 import model.Station;
 import model.Train;
+import service.TrainService;
 
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,16 +19,17 @@ public class StationBean implements Serializable {
 
     private List<Train> trainList;
 
+    @Inject
+    private TrainService trainService;
+
     public void setStation(Station station) {
         this.station = station;
     }
 
     public void loadTrains() {
-        trainList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Train train = new Train("Train_" + i, "From_" + i, "To_" + i, "09-09-2020 10:0" + i, "09-09-2020 11:0" + i);
-            trainList.add(train);
-        }
+
+        if (station.getName() != null && !station.getName().isBlank())
+            trainList = trainService.getTrainListOnStation(station.getName());
     }
 
     public Station getStation() {
