@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+    <h:form id="form">
+        <h:outputText value="Station: "/>
+        <p:inputText id="stationName" value="#{stationBean.station.name}"/>
+        <p:commandButton value="Connect" update="trainTable" action="#{stationBean.loadTrains}"/>
+    </h:form>
+    <p:dataTable id="trainTable" value="#{stationBean.trainList}" var="oneTrain">
+        <p:column headerText="Train">
+            <h:outputText value="#{oneTrain.trainName}"/>
+        </p:column>
+    </p:dataTable>
+</h:body>
+</html>
