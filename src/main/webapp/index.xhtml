@@ -6,12 +6,22 @@
 <h:head>
     <title>Timetable</title>
     <script type="text/javascript">
-        let ws;
+        let socket;
 
         function init() {
             //TODO init websocket
             let stationName = document.getElementById("form:stationName").value
             updateTrainList();
+            socket = new WebSocket("ws://localhost:8080/stations/" + stationName)
+            socket.onopen = function () {
+                console.log("Connection established")
+            }
+            socket.onerror = function (error) {
+                console.log(error.message)
+            }
+            socket.onmessage = function () {
+                updateTrainList();
+            }
         }
     </script>
 </h:head>
