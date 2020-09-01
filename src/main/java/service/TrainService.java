@@ -23,7 +23,8 @@ public class TrainService implements Serializable {
             url = new URL("http://localhost:8000/trains/" + stationName + "?date=" + LocalDate.now());
             System.out.println(url.toString());
             Train[] trains = mapper.readValue(url, Train[].class);
-            trainList = Arrays.asList(trains);
+            trainList = new ArrayList<>();
+            trainList.addAll(Arrays.asList(trains));
             System.out.println("Trains were successfully added");
         } catch (IOException e) {
             e.printStackTrace();

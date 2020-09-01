@@ -3,6 +3,7 @@ package beans;
 import model.Station;
 import model.Train;
 import service.TrainService;
+import websocket.StationWebSocketEndpoint;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -27,9 +28,10 @@ public class StationBean implements Serializable {
     }
 
     public void loadTrains() {
-
-        if (station.getName() != null && !station.getName().isBlank())
+        if (station.getName() != null && !station.getName().isBlank()) {
             trainList = trainService.getTrainListOnStation(station.getName());
+        }
+
     }
 
     public Station getStation() {
