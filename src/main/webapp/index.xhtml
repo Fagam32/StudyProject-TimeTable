@@ -1,17 +1,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Timetable</title>
     <script type="text/javascript">
         let socket;
-
         function init() {
-            //TODO init websocket
             let stationName = document.getElementById("form:stationName").value
-            updateTrainList();
+            let update = updateTrainList;
+            update()
             socket = new WebSocket("ws://localhost:8080/stations/" + stationName)
             socket.onopen = function () {
                 console.log("Connection established")
@@ -20,7 +18,7 @@
                 console.log(error.message)
             }
             socket.onmessage = function () {
-                updateTrainList();
+                update()
             }
         }
     </script>
@@ -33,7 +31,7 @@
         <p:commandButton id="connectButton" value="Connect" update="trainTable" onclick="init()"/>
     </h:form>
 
-    <p:remoteCommand name="updateTrainList" actionListener="#{stationBean.loadTrains}" style="display: none"/>
+    <p:remoteCommand name="updateTrainList" actionListener="#{stationBean.loadTrains}" update="trainTable" style="display: none"/>
 
     <p:dataTable id="trainTable" value="#{stationBean.trainList}" var="oneTrain">
 
@@ -49,14 +47,13 @@
             <h:outputText value="#{oneTrain.toStation}"/>
         </p:column>
 
-        <p:column headerText="Departure">
-            <h:outputText value="#{oneTrain.departure}"/>
-        </p:column>
-
         <p:column headerText="Arrival">
-            <h:outputText value="#{oneTrain.arrival}"/>
+            <h:outputText value="#{oneTrain.path.get(0).arrival}"/>
         </p:column>
 
+        <p:column headerText="Departure">
+            <h:outputText value="#{oneTrain.path.get(0).departure}"/>
+        </p:column>
 
     </p:dataTable>
 

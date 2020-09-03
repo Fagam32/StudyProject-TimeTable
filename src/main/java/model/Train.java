@@ -1,11 +1,13 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,19 +16,18 @@ public class Train implements Serializable {
 
     private String trainName;
 
+    private Integer seatsNumber;
+
     private String fromStation;
 
     private String toStation;
 
-    private String departure;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime departure;
 
-    private String arrival;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime arrival;
 
-    @JsonIgnore
-    private String[] path;
-    @JsonIgnore
-    private String[] tickets;
-    @JsonIgnore
-    private Integer seatsNumber;
+    private List<StationInfo> path;
 
 }

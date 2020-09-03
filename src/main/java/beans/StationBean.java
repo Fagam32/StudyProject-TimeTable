@@ -3,9 +3,8 @@ package beans;
 import model.Station;
 import model.Train;
 import service.TrainService;
-import websocket.StationWebSocketEndpoint;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class StationBean implements Serializable {
 
     private Station station;
@@ -43,6 +42,7 @@ public class StationBean implements Serializable {
     public List<Train> getTrainList() {
         if (trainList == null)
             trainList = new ArrayList<>();
+
         return trainList;
     }
 }
