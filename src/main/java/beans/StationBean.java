@@ -30,7 +30,6 @@ public class StationBean implements Serializable {
         if (station.getName() != null && !station.getName().isBlank()) {
             trainList = trainService.getTrainListOnStation(station.getName());
         }
-
     }
 
     public Station getStation() {

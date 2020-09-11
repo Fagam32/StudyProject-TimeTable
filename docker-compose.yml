@@ -1,13 +1,13 @@
 version: '3'
 
 services:
-  wildfly:
-    image: jboss/wildfly
-    container_name: wildfly
-    ports:
-      - "8080:8080"
-      - "9990:9990"
   timetable:
     build: .
-    depends_on:
-      - wildfly
+    ports:
+      - "8080:8080"
+    networks:
+      - train_network
+networks:
+  train_network:
+    external:
+      name: train_network

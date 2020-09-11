@@ -13,9 +13,7 @@ public class RabbitMQService {
 
     public void init() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("172.17.0.1");
-        factory.setUsername("tableau");
-        factory.setPassword("tableau");
+        factory.setHost("rabbitmq");
         factory.setPort(5672);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();

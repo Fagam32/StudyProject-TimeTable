@@ -17,7 +17,6 @@ public class StationWebSocketEndpoint {
         Session session = connections.get(stationName);
         if (session != null)
             try {
-
                 session.getBasicRemote().sendText(message);
             } catch (IOException e) {
                 e.printStackTrace();
